@@ -1,5 +1,4 @@
 const { Thoughts, User } = require('../models');
-const { rawListeners } = require('../models/thoughts');
 
 module.exports = {
     async getAllThoughts(req, res) {
