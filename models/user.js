@@ -27,9 +27,8 @@ const usersSchema = new Schema(
             ref: "Users"
         }],
     }, {
-        toJSon: {
-            virtuals: true,
-            getters: true
+        toJSON: {
+            virtuals: true
         },
         id: false
 });
