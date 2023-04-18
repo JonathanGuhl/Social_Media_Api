@@ -70,7 +70,7 @@ module.exports = {
             );
 
             if(!user) {
-                return res.status(404).json({ message: 'No user with that ID'});
+                return res.status(404).json({ message: 'No user with that ID!'});
             }
 
             res.json({ message: 'Thought has been deleted!'});
@@ -78,4 +78,35 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-}
+    async createReaction(req, res) { 
+        try {
+            const reactToThought = await Thoughts.findOneAndUpdate(
+                { _id: req.params.id },
+                { $addToSet: { reactions: req.body } },
+                { new: true }
+            );
+            if(!reactToThought) {
+                return res.status(404).json({ message: 'No thought with that ID!'});
+            }
+        
+            res.json(reactToThought);
+        } catch (err) {
+            res.status(500).json(err)
+        }
+    },
+    async deleteReaction(req, res) {
+        try {
+            const deletedReaction = await Thoughts.findOneAndUpdate(
+                { _id: req.params.id },
+                { $pull: { reactions: { reactionId: req.params.id } } },
+                { new: true }
+            );
+            if(!deletedReaction) {
+                return res.status(404).json({ message: "No thought with that ID"})
+            }
+            res.json(deletedReaction);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+};
