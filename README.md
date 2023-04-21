@@ -2,7 +2,7 @@
 
 ## Description 
 
-- Here I have set up API routes for a social media company using [MongoDB](https://www.mongodb.com/nosql-explained) [Mongoose](https://mongoosejs.com/docs/models.html) [ExpressJS](https://expressjs.com) and [NodeJS](https://nodejs.org/en). This is backend work only.
+- Here I have set up API routes for a social media company using [MongoDB](https://www.mongodb.com/nosql-explained), [Mongoose](https://mongoosejs.com/docs/models.html), [ExpressJS](https://expressjs.com), and [NodeJS](https://nodejs.org/en). This is backend work only.
 
 - This will allow you to make `GET`, `POST`, `PUT`, and `DELETE` request to a restful API.
 
