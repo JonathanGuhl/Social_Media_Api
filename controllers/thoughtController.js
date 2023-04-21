@@ -54,27 +54,44 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // async deleteThought(req, res) {
+    //     try { 
+    //         const deletedThought = await Thoughts.findOneAndRemove({ _id: req.params.id });
+
+    //         if(!deletedThought) {
+    //             return res.status(404).json({ message: 'No thought with that ID!'});
+    //         }
+
+    //         const user = await User.findOneAndUpdate(
+    //             { username: deletedThought.username },
+    //             { $pull: { thoughts: deletedThought._id } },
+    //             { new: true }
+    //         );
+
+    //         if(!user) {
+    //             return res.status(404).json({ message: 'No thought with that ID!'});
+    //         }
+
+    //         res.json({ message: 'Thought has been deleted!'});
+    //     } catch (err) {
+    //         res.status(500).json(err);
+    //     }
+    // },
     async deleteThought(req, res) {
-        try { 
-            const deletedThought = await Thoughts.findOneAndRemove({ _id: req.params.id });
+        try {
+            const deletedThought = await Thoughts.findOneAndDelete({ _id: req.params.id })
+            const user = await User.findOneAndUpdate({ username: deletedThought.username }, {
+                $pull: { thoughts: deletedThought.id }
+            })
 
-            if(!deletedThought) {
-                return res.status(404).json({ message: 'No thought with that ID!'});
+            if (!deletedThought) {
+                return res.status(404).json("No thought with that Id")
             }
 
-            const user = await User.findOneAndUpdate(
-                { username: deletedThought.username },
-                { $pull: { thoughts: deletedThought.id } },
-                { new: true }
-            );
-
-            if(!user) {
-                return res.status(404).json({ message: 'No user with that ID!'});
-            }
-
-            res.json({ message: 'Thought has been deleted!'});
-        } catch (err) {
-            res.status(500).json(err);
+            res.json(deletedThought)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(error)
         }
     },
     async createReaction(req, res) { 
