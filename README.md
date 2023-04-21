@@ -18,7 +18,7 @@
 
 ## Usage 
 
-- With the server running you'll open up your restfulAPI and make the proper requests. I used [Insomnia](https://insomnia.rest)
+- With the server running you'll open up your restfulAPI and make the proper requests. I used [Insomnia](https://insomnia.rest).
 
 - You can follow this video below on how to you would go about doing that. 
 
