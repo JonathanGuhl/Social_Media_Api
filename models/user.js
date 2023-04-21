@@ -13,10 +13,10 @@ const usersSchema = new Schema(
             unique: true,
             required: true,
             validate: {
-                validator: function(value) {
-                  return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(value);
-                },
-        }
+                validator: function (v) {
+                    return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v)
+                }
+            }
         },
         thoughts: [{
             type: Schema.Types.ObjectId,
@@ -24,7 +24,7 @@ const usersSchema = new Schema(
         }],
         friends: [{ 
             type: Schema.Types.ObjectId,
-            ref: "Users"
+            ref: "User"
         }],
     }, {
         toJSON: {

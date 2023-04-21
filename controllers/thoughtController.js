@@ -22,11 +22,11 @@ module.exports = {
     },
     async createThought(req, res) {
         try {
-            const newThought = await Thoughts.create(red.body);
+            const newThought = await Thoughts.create(req.body);
             const user = await User.findOneAndUpdate(
-                { _id: req.body.userId },
+                { _id: req.body._id },
                 { $addToSet: { thoughts: newThought._id} },
-                { new: true }
+                { runValidators: true, new: true }
             );
 
             if(!user) {
@@ -97,7 +97,7 @@ module.exports = {
         try {
             const deletedReaction = await Thoughts.findOneAndUpdate(
                 { _id: req.params.id },
-                { $pull: { reactions: { reactionId: req.params.id } } },
+                { $pull: { reactions: { _id: req.params.reactionId } } },
                 { new: true }
             );
             if(!deletedReaction) {

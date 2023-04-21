@@ -3,5 +3,24 @@
     "dayjs": "^1.11.7",
     "express": "^4.18.2",
     "mongoose": "^7.0.4"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "social_media_api",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonathanGuhl/Social_Media_Api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonathanGuhl/Social_Media_Api/issues"
+  },
+  "homepage": "https://github.com/JonathanGuhl/Social_Media_Api#readme"
 }

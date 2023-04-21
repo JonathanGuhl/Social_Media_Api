@@ -18,11 +18,7 @@ const reactionSchema =  new Schema(
         },
         createdAt: { 
             type: Date,
-            default: Date.now,
-            get: function() {
-                // Format the createdAt date using dayjs
-                return dayjs(this.get('createdAt')).format('YYYY-MM-DD [at] HH:mm:ss');
-            }
+            default: Date.now()
         }
     }, {
         toJSON: {
@@ -42,13 +38,10 @@ const thoughtsSchema = new Schema (
         createdAt: { 
             type: Date,
             default: Date.now,
-            get: function() {
-                // Format the createdAt date using dayjs
-                return dayjs(this.get('createdAt')).format('YYYY-MM-DD [at] HH:mm:ss');
-            }
         },
         username: { 
             type: String,
+            ref: 'User',
             required: true
         },
         reactions: [reactionSchema]
@@ -59,6 +52,33 @@ const thoughtsSchema = new Schema (
         id: false
     }
 );
+
+reactionSchema.virtual("formatDate").get(function () {
+    return this.createdAt.toLocaleTimeString("en-us", {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+        timeZone: 'America/Chicago'
+    })
+}) 
+
+thoughtsSchema.virtual("formatDate").get(function () {
+    return this.createdAt.toLocaleTimeString("en-us", {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+        timeZone: 'America/Chicago'
+    })
+})
+
 
 thoughtsSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
