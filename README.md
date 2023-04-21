@@ -22,3 +22,4 @@
 
 - You can follow this video below on how to you would go about doing that. 
 
+/Users/jonguhl/Desktop/bootcamp/Social_Media_Api/assets/NoSQL-Tutorial.mp4
