@@ -4,6 +4,7 @@ module.exports = {
     async getUsers(req, res) {
         try {
             const users = await User.find()
+            .populate([ 'thoughts', 'friends'])
             res.json(users);
         } catch (err) {
             res.status(500).json(err);
@@ -13,6 +14,7 @@ module.exports = {
         try {
             const user = await User.findOne({ _id: req.params.id })
             .populate([ 'thoughts', 'friends'])
+            // .select('-__v');
 
         if(!user) {
             return res.status(404).json({ message: 'No user with that ID!'});
@@ -20,6 +22,7 @@ module.exports = {
 
         res.json(user);
         } catch (err) {
+            console.log(err)
             res.status(500).json(err)
         }
     },
@@ -47,17 +50,19 @@ module.exports = {
     },
     async updateUser(req, res) {
         try {
-          const updatedUser = User.findOneAndUpdate(
+          const updatedUser = await User.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
             { new: true }
-          )
+            ).exec()
+          
           if(!updatedUser) {
             return res.status(404).json({ message: 'No user with that ID!'});
           }
     
           res.json(updatedUser);
         } catch (err) {
+            console.log(err)
           res.status(500).json(err);
         }
     },
@@ -67,30 +72,32 @@ module.exports = {
             { _id: req.params.id },
             { $addToSet: { friends: req.params.friendId } },
             { new: true })
-            .populate('friends')
+            .exec();
 
         if(!addedFriend) {
             return res.status(404).json({ message: 'No user with that ID!'})
         }
             res.json(addedFriend)
         } catch (err) {
+            console.log(err)
             res.status(500).json(err);
         }
     },
     async deleteFriend(req, res) {
         try {
-          const deletedFriend = User.findOneAndUpdate(
+          const deletedFriend = await User.findOneAndUpdate(
             { _id: req.params.id },
             { $pull: { friends: req.params.friendId } },
             { new: true })
             .populate('friends')
 
-            if(!user) {
+            if(!deletedFriend) {
                 return res.status(404).json({ message: 'No user with that ID!'})
             }
 
             res.json(deletedFriend)
-        } catch { 
+        } catch (err) { 
+            console.log(err)
             res.status(500).json(err);
         }
     },

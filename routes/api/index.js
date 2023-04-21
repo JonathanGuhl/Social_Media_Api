@@ -8,4 +8,4 @@ router.use('/users', userRoutes );
 //api/thoughts
 router.use('/thoughts', thoughtRoutes);
 
-model.exports = router;
+module.exports = router;
