@@ -5,7 +5,8 @@
     "mongoose": "^7.0.4"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "seeds": "node utils/seeds.js"
   },
   "name": "social_media_api",
   "description": "",
